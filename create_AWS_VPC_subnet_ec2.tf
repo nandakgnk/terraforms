@@ -22,7 +22,7 @@ resource "aws_subnet" "my_subnet" {
   }
 }
 
-resource "aws_network_interface" "nanda" {
+resource "aws_network_interface" "eth" {
   subnet_id   = "${aws_subnet.my_subnet.id}"
   private_ips = ["10.0.1.10"]
 
@@ -31,12 +31,12 @@ resource "aws_network_interface" "nanda" {
   }
 }
 
-resource "aws_instance" "foo" {
+resource "aws_instance" "server1" {
   ami           = "ami-00eb20669e0990cb4" # us-east-1a
   instance_type = "t2.micro"
 
   network_interface {
-    network_interface_id = "${aws_network_interface.nanda.id}"
+    network_interface_id = "${aws_network_interface.eth.id}"
     device_index         = 0
   }
 }
